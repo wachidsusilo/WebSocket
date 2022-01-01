@@ -92,7 +92,7 @@ void WSServer::run() {
         lastAccept = millis();
         accept();
     }
-    if (millis() - lastCleanup > 5000) {
+    if (millis() - lastCleanup > 30000) {
         lastCleanup = millis();
         cleanup();
     }
