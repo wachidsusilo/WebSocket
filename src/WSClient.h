@@ -35,7 +35,7 @@ class WSClient {
     bool send(String data);
     bool ping(String data = "");
     bool pong(String data = "");
-    bool close(CloseReason code = CloseReason_GoingAway, String reason = "");
+    bool close(CloseReason code = CloseReason_GoingAway, String reason = "", bool delteTask = false);
     bool isConnected();
     bool reconnect();
     void setUseMask(bool useMask);

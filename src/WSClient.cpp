@@ -124,9 +124,9 @@ bool WSClient::pong(String data) {
     return client->write(payload, sizeof(payload));
 }
 
-bool WSClient::close(CloseReason code, String reason) {
+bool WSClient::close(CloseReason code, String reason, bool deleteTask) {
 #ifdef ESP32
-    if (handler) vTaskDelete(handler);
+    if (deleteTask && handler) vTaskDelete(handler);
 #endif
     return _close(code, reason);
 }
