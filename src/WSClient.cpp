@@ -223,10 +223,12 @@ void WSClient::poll() {
     char payload[payloadLen + 1];
     payload[payloadLen] = 0;
     i = 0;
-    while (isConnected()) {
-        int res = client->read();
-        if (res >= 0) payload[i++] = res;
-        if (i >= payloadLen) break;
+    if (payloadLen > 0) {
+        while (isConnected()) {
+            int res = client->read();
+            if (res >= 0) payload[i++] = res;
+            if (i >= payloadLen) break;
+        }
     }
 
     String payloadData(payload);
