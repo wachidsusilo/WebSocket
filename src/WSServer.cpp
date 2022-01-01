@@ -39,6 +39,7 @@ void WSServer::poll() {
 
 void WSServer::cleanup() {
     for (int i = 0; i < clients.size(); i++) {
+        clients[i].ping();
         if (!clients[i].isConnected()) {
             clients[i].close(CloseReason_AbnormalClosure);
             clients.erase(clients.begin() + i);
@@ -92,7 +93,7 @@ void WSServer::run() {
         lastAccept = millis();
         accept();
     }
-    if (millis() - lastCleanup > 30000) {
+    if (millis() - lastCleanup > 1000) {
         lastCleanup = millis();
         cleanup();
     }
