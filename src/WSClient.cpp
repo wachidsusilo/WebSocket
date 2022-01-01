@@ -124,7 +124,7 @@ bool WSClient::pong(String data) {
     return client->write(payload, sizeof(payload));
 }
 
-bool WSClient::close(CloseReason code, String reason, bool deleteTask) {
+bool WSClient::close(CloseReason code, String reason) {
 #ifdef ESP32
     if (deleteTask && handler) vTaskDelete(handler);
 #endif
@@ -184,15 +184,15 @@ void WSClient::poll() {
     Frame::Header header(bin);
     uint16_t payloadLen = header.payload;
     if ((useMask && header.mask) || (!useMask && !header.mask) || !Frame::isValid(Frame::Opcode(header.opcode))) {
-        close(CloseReason_ProtocolError);
+        _close(CloseReason_ProtocolError);
         return;
     }
     if (header.opcode == 0) {
-        close(CloseReason_UnsupportedData);
+        _close(CloseReason_UnsupportedData);
         return;
     }
     if (header.payload == 127) {
-        close(CloseReason_MessageTooBig);
+        _close(CloseReason_MessageTooBig);
         return;
     }
     if (header.payload == 126) {
@@ -215,7 +215,7 @@ void WSClient::poll() {
             if (i > 3) break;
         }
         if (i != 4) {
-            close(CloseReason_ProtocolError);
+            _close(CloseReason_ProtocolError);
             return;
         }
     }
@@ -249,7 +249,7 @@ void WSClient::poll() {
                 closeReason = (payloadData[0] << 8) + payloadData[1];
                 closeReason = Crypto::swapEndianness(closeReason);
             }
-            close(static_cast<CloseReason>(closeReason));
+            _close(static_cast<CloseReason>(closeReason));
             break;
     }
 }
@@ -326,7 +326,7 @@ void WSClient::run() {
         if (state == Connected) poll();
     } else if (millis() - lastReconnectAttempt > 15000) {
         lastReconnectAttempt = millis();
-        if (state == Connected) close(CloseReason_InternalServerError);
+        if (state == Connected) _close(CloseReason_InternalServerError);
         reconnect();
     }
 }
