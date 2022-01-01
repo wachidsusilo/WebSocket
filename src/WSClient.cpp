@@ -126,7 +126,7 @@ bool WSClient::pong(String data) {
 
 bool WSClient::close(CloseReason code, String reason) {
 #ifdef ESP32
-    if (deleteTask && handler) vTaskDelete(handler);
+    if (handler) vTaskDelete(handler);
 #endif
     return _close(code, reason);
 }
