@@ -71,12 +71,14 @@ void WSServer::accept() {
         return;
     }
 
-    client->write("HTTP/1.1 101 Switching Protocols\r\n");
-    client->write("Connection: Upgrade\r\n");
-    client->write("Upgrade: websocket\r\n");
-    client->write("Sec-WebSocket-Version: 13\r\n");
-    client->write("Sec-WebSocket-Accept: " + result.key + "\r\n");
-    client->write("\r\n");
+    String response = "HTTP/1.1 101 Switching Protocols\r\n";
+    response += "Connection: Upgrade\r\n";
+    response += "Upgrade: websocket\r\n";
+    response += "Sec-WebSocket-Version: 13\r\n";
+    response += "Sec-WebSocket-Version: 13\r\n";
+    response += "Sec-WebSocket-Accept: " + result.key + "\r\n\r\n";
+
+    client->write(response);
 
     WSClient wsClient(client);
     wsClient.setUseMask(false);

@@ -324,7 +324,7 @@ void WSClient::reshuffleMask() {
 void WSClient::run() {
     if (isConnected()) {
         if (state == Connected) poll();
-    } else if (millis() - lastReconnectAttempt > 1000) {
+    } else if (millis() - lastReconnectAttempt > 15000) {
         lastReconnectAttempt = millis();
         if (state == Connected) close(CloseReason_InternalServerError);
         reconnect();
