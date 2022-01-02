@@ -18,6 +18,7 @@ class WSServer {
     void poll();
     void end();
     void run();
+    bool hasClient(String id);
     std::vector<WSClient>& getClients();
     void onConnection(WSCallback callback);
 

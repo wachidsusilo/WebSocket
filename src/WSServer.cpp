@@ -47,6 +47,13 @@ void WSServer::cleanup() {
     }
 }
 
+bool WSServer::hasClient(String id) {
+    for (auto& client : clients) {
+        if (client.id == id) return true;
+    }
+    return false;
+}
+
 void WSServer::accept() {
     if (!server) return;
     std::shared_ptr<TCPClient> client = server->accept();
