@@ -47,15 +47,15 @@ void WSServer::cleanup() {
     }
 }
 
+bool WSServer::hasClients() {
+    return !clients.empty();
+}
+
 bool WSServer::hasClient(String id) {
     for (auto& client : clients) {
         if (client.id == id) return true;
     }
     return false;
-}
-
-bool WSServer::hasClients() {
-    return !clients.empty();
 }
 
 void WSServer::accept() {
