@@ -18,6 +18,7 @@ class WSServer {
     void poll();
     void end();
     void run();
+    void close(String id);
     bool hasClients();
     bool hasClient(String id);
     std::vector<WSClient>& getClients();

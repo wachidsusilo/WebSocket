@@ -37,12 +37,10 @@ void WSServer::poll() {
     }
 }
 
-void WSServer::cleanup() {
-    for (int i = 0; i < clients.size(); i++) {
-        if (!clients[i].isConnected()) {
-            clients[i].close(CloseReason_AbnormalClosure);
-            clients.erase(clients.begin() + i);
-            i--;
+void WSServer::close(String id) {
+    for (auto& client : clients) {
+        if (client.id == id) {
+            client.close(CloseReason_AbnormalClosure);
         }
     }
 }
@@ -56,6 +54,16 @@ bool WSServer::hasClient(String id) {
         if (client.id == id) return true;
     }
     return false;
+}
+
+void WSServer::cleanup() {
+    for (int i = 0; i < clients.size(); i++) {
+        if (!clients[i].isConnected()) {
+            clients[i].close(CloseReason_AbnormalClosure);
+            clients.erase(clients.begin() + i);
+            i--;
+        }
+    }
 }
 
 void WSServer::accept() {
