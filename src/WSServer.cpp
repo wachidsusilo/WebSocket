@@ -54,6 +54,10 @@ bool WSServer::hasClient(String id) {
     return false;
 }
 
+bool WSServer::hasClients() {
+    return !clients.empty();
+}
+
 void WSServer::accept() {
     if (!server) return;
     std::shared_ptr<TCPClient> client = server->accept();
