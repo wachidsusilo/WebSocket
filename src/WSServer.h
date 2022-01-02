@@ -29,10 +29,11 @@ class WSServer {
     std::shared_ptr<TCPServer> server;
     std::vector<WSClient> clients;
     WSCallback callback = NULL;
-    void accept();
-    void cleanup();
     uint32_t lastAccept = 0;
     uint32_t lastCleanup = 0;
+    String generateId();
+    void accept();
+    void cleanup();
 #ifdef ESP32
     TaskHandle_t handler = NULL;
     static void pollingTask(void* ptr);

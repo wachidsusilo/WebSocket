@@ -81,9 +81,18 @@ void WSServer::accept() {
     client->write(response);
 
     WSClient wsClient(client);
+    wsClient.id = generateId();
     wsClient.setUseMask(false);
     if (callback) callback(wsClient);
     clients.push_back(wsClient);
+}
+
+String WSServer::generateId() {
+    String id = "";
+    for (int i = 0; i < 16; i++) {
+        id += String(random(0, 16), HEX);
+    }
+    return id;
 }
 
 void WSServer::run() {

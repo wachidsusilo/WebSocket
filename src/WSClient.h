@@ -26,6 +26,7 @@ class WSClient {
    public:
     using EmptyCallback = std::function<void(WSClient&)>;
     using StringCallback = std::function<void(WSClient&, String)>;
+    String id;
 
     WSClient();
     WSClient(std::shared_ptr<TCPClient> client);
