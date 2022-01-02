@@ -1,8 +1,8 @@
 ## WebSocket
-Simple WebSocket Library for Arduino, ESP8266, and ESP32. This library can support any network interface. You have to create a class which is inheriting `TCPClient` and `TCPServer`. Please note that you need to `override` the pure virtual methods. You can look into `TCPWiFiClient.h` and `TCPWiFiServer.h` as an example about how to do it.
+Simple WebSocket Library for ESP8266 and ESP32. This library can support any network interface. If you are not using `WiFi`, you have to create a class which is inheriting `TCPClient` and `TCPServer`. Please note that you need to `override` the pure virtual methods. You can look into `TCPWiFiClient.h` and `TCPWiFiServer.h` as an example.
 
 ## Examples
-All of these examples are available in the examples directory. For ESP8266 (or any other platform except ESP32), you need to poll the event in your `void loop()` routine. On the ESP32, this event polling is done using `FreeRTOS` task.
+All of these examples are available in the examples directory. For ESP8266, you need to poll the event in your `void loop()` routine. On the ESP32, this event polling is done using `FreeRTOS` task.
 
 ### 1. ESP8266 as Client
 ````c++

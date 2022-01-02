@@ -1,12 +1,15 @@
 #ifndef WS_SERVER_H
 #define WS_SERVER_H
 
+#include <functional>
+#include <memory>
+
 #include "TCPWiFiServer.h"
 #include "WSClient.h"
 
 class WSServer {
    public:
-    using WSCallback = void (*)(WSClient&);
+    using WSCallback = std::function<void(WSClient&)>;
 
     WSServer(uint16_t port = 80, uint8_t maxClients = 4);
     WSServer(std::shared_ptr<TCPServer> server);

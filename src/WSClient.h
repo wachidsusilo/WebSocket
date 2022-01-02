@@ -1,6 +1,7 @@
 #ifndef WEBSOCKET_CLIENT_H
 #define WEBSOCKET_CLIENT_H
 
+#include <functional>
 #include <memory>
 
 #include "Arduino.h"
@@ -23,8 +24,8 @@ enum CloseReason {
 
 class WSClient {
    public:
-    using EmptyCallback = void (*)(WSClient &);
-    using StringCallback = void (*)(WSClient &, String);
+    using EmptyCallback = std::function<void(WSClient&)>;
+    using StringCallback = std::function<void(WSClient&, String)>;
 
     WSClient();
     WSClient(std::shared_ptr<TCPClient> client);
