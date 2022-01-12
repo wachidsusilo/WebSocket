@@ -20,6 +20,7 @@ class TCPWiFiClient : public TCPClient {
     }
 
     bool connect(const String &host, const uint16_t &port, const String &path, std::vector<std::pair<String, String>> customHeaders) override {
+        if (!WiFi.isConnected()) return false;
         return client.connect(host.c_str(), port);
     }
 
