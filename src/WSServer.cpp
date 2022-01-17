@@ -3,6 +3,9 @@
 WSServer::WSServer(uint16_t port, uint8_t maxClients)
     : server(std::make_shared<TCPWiFiServer>(port, maxClients)) {}
 
+WSServer::WSServer(std::shared_ptr<TCPServer> server)
+    : server(server) {}
+
 WSServer::~WSServer() {
     end();
 #ifdef ESP32
