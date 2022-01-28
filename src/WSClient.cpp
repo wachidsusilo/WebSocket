@@ -226,7 +226,7 @@ void WSClient::poll() {
     if (payloadLen > 0) {
         while (isConnected()) {
             int res = client->read();
-            if (res >= 0) payload[i++] = res;
+            if (res > 0) payload[i++] = res;
             if (i >= payloadLen) break;
         }
     }
